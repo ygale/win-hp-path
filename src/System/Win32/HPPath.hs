@@ -3,6 +3,7 @@
 module System.Win32.HPPath
   ( winPath
   , unWinPath
+  , mapWinPath
   , clearPath
   , addHPPath
   , isVersionOpt
@@ -11,7 +12,8 @@ module System.Win32.HPPath
  where
 
 import Data.List (intercalate, isInfixOf)
-import Data.Split (splitOn)
+import Data.List.Split (splitOn)
+import Data.Maybe (fromMaybe)
 
 -- | A Windows path that has been split into its components.
 newtype WinPath = WinPath { getWinPath :: [FilePath] }
@@ -44,9 +46,13 @@ winPath = WinPath . splitOn ";"
 unWinPath :: WinPath -> String
 unWinPath = intercalate ";" . getWinPath
 
+-- | Apply a function on 'WithPath' to a list of 'FilePaths'.
+mapWinPath :: (WinPath -> WinPath) -> String -> String
+mapWinPath f = unWinPath . f . winPath
+
 -- | Remove all Haskell-related paths from a 'WinPath'.
 clearPath :: WinPath -> WinPath
-clearPath = filter (not . ("Haskell" `isInfixOf`))
+clearPath = WinPath . filter (not . ("Haskell" `isInfixOf`)) . getWinPath
 
 -- | Install all required paths for the Haskell Platform based at the
 -- given 'FilePath' into a 'WinPath'. The initial 'WinPath' must not
@@ -61,8 +67,23 @@ addHPPath hp =
   where
     prependHp = (hp' ++)
     hp'
-     | endsWith '\\' hp = hp
-     | otherwise        = hp ++ "\\"
+     | endsWith '\\' hp = unquote hp
+     | otherwise        = unquote hp ++ "\\"
+
+-- | Remove double quotes, if they exist, from around a 'String'.
+unquote :: String -> String
+unquote = unbracket '"' '"'
+
+-- | Remove the specified left and right brackets from around a list.
+unbracket :: Eq a => a -> a -> [a] -> [a]
+unbracket l r xs@(x:xs') | x == l = fromMaybe xs $ dropFromEnd r xs'
+unbracket _ _ xs                  = xs
+
+-- | Remove the specified value from the end of the list, if possible.
+dropFromEnd :: Eq a => a -> [a] -> Maybe [a]
+dropFromEnd x [y] | x == y = Just []
+dropFromEnd x (y:ys)       = fmap (y:) $ dropFromEnd x ys
+dropFromEnd _ _            = Nothing
 
 -- | Test whether the last element of a list exists and matches the
 -- given value.

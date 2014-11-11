@@ -83,13 +83,13 @@ category:            System
 build-type:          Simple
 cabal-version:       >=1.10
 
-source-repository head
-    type:     git
-    location: git://github.com/ygale/win-hp-path
-
 extra-source-files:  activate-hp.bat
                      use-hp.bat
                      find-hp.bat
+
+source-repository head
+    type:     git
+    location: git://github.com/ygale/win-hp-path
 
 library
   hs-source-dirs:      src
@@ -108,6 +108,7 @@ executable activate-hppath
   build-depends:       base ==4.*
                        , win-hp-path ==0.1.0
                        , Win32
+                       , split
 
   other-modules:       System.Win32.HPPath.Registry
                        Paths_win_hp_path
@@ -120,5 +121,6 @@ executable use-hppath
   build-depends:       base >=4.7 && <5
                        , win-hp-path ==0.1.0
                        , process >=1.2
+                       , split
 
   other-modules:       Paths_win_hp_path
