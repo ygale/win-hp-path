@@ -79,24 +79,29 @@ extra-source-files:    activate-hp.bat
                      , find-hp.bat
 
 library
-  exposed-modules:     System.Win32.HPPath
-  build-depends:       base 4.*
   hs-source-dirs:      src
   default-language:    Haskell2010
+
+  build-depends:       base 4.*
+                       , split
+
+  exposed-modules:     System.Win32.HPPath
 
 executable activate-hppath
   main-is:             activate-hppath.hs
-  other-modules:       System.Win32.HPPath.Reg
   hs-source-dirs:      src
   default-language:    Haskell2010
 
-  build-depends:         base 4.*
+  build-depends:       base 4.*
+                       , win-hp-path
                        , Win32
-                       , split
+
+  other-modules:       System.Win32.HPPath.Reg
 
 executable use-hppath
   main-is:             use-hppath.hs
   hs-source-dirs:      src
   default-language:    Haskell2010
 
-  build-depends:         base 4.*
+  build-depends:       base 4.*
+                       , win-hp-path
