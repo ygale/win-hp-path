@@ -1,5 +1,5 @@
 name:                win-hp-path
-version:             0.1.0
+version:             0.1.1
 synopsis:            Work with multiple Haskell Platform versions on Windows
 
 description:
@@ -87,7 +87,7 @@ executable use-hppath
   default-language:    Haskell2010
 
   build-depends:       base >=4.7 && <5
-                       , win-hp-path ==0.1.0
+                       , win-hp-path ==0.1.1
                        , process >=1.2
                        , split
 
