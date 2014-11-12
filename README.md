@@ -1,10 +1,8 @@
 ## win-hp-path: Work with multiple Haskell Platform versions on Windows
 
-Get it on [Hackage](http://hackage.haskell.org/package/win-hp-path).
-
-This package provides the `use-hp` command for working with
-multiple versions of the Haskell Platform on Windows. It works well
-for using GHC in a command prompt window.
+This project provides the `use-hp` command for working with multiple
+versions of the Haskell Platform on Windows. It works well for using
+GHC in a command prompt window.
 
 ### Quick start
 
@@ -30,7 +28,7 @@ your default. Do the above steps to activate it in one window.  Run
 `echo %PATH%`, and use that information to correct the values of your
 path permanently in System Properties. Now any new command prompt will
 work with your default Haskell Platform right from the
-start without having to run `use-hp`, and you can still run .
+start without having to run `use-hp`.
 
 Running `use-hp` enters a "sub-shell" within the same command prompt
 window and temporarily modifies the path to use the Haskell Platform
