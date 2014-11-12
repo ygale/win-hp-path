@@ -23,7 +23,7 @@ newtype WinPath = WinPath { getWinPath :: [FilePath] }
 -- so the executables here override other executables with the same
 -- name.
 hpMaster :: FilePath
-hpMaster = "C:\\Haskell\\bin"
+hpMaster = "C:\\Program Files\\Haskell\\bin"
 
 -- | Subpaths of a Haskell Platform installation that are placed near
 -- the beginning of the Windows PATH.
