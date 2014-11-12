@@ -1,7 +1,7 @@
 @echo off
 call find-hp.bat %1
 if "%hppath%" == "" goto :oops
-use-hppath %hppath%
+use-hppath "%hppath%"
 goto :end
 
 :oops
