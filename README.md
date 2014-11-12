@@ -1,8 +1,7 @@
 ## win-hp-path: Work with multiple Haskell Platform versions on Windows
 
 This project provides the `use-hp` command for working with multiple
-versions of the Haskell Platform on Windows. It works well for using
-GHC in a command prompt window.
+versions of the Haskell Platform on Windows.
 
 ### Quick start
 
