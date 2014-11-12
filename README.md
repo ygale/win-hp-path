@@ -2,45 +2,37 @@
 
 Get it on [Hackage](http://hackage.haskell.org/package/win-hp-path).
 
-This package provides the `use-hppath` program for working with
-multiple versions of the Haskell Platform on Windows.
+This package provides the `use-hp` command for working with
+multiple versions of the Haskell Platform on Windows. It works well
+for using GHC in a command prompt window.
 
-Warning! The use of this program removes any folders containing the
-string `"Haskell"` from your PATH. For Haskell Platform users on
-Windows, any such folder is only put into the PATH by Haskell Platform
-installations, so that behavior is what you want.
+### Quick start
 
-When run in a command prompt window, the `use-hppath` program enters a
-sub-shell where the PATH is modified to use the Haskell Platform
-installed at the path specified on the comand line. In other words, it
-changes the version of the Haskell Platform in the current command
-prompt window only. To return to the original command line
-environment, enter the command `exit`.
+#### Installation
 
-Example usage:
+1. Make sure the folder `C:\Program Files\Haskell\bin` exists.
+1. Get the latest Haskell Platform. Run `cabal install win-hp-path` and copy the resulting executable `use-hppath.exe` into `C:\Program Files\Haskell\bin`.
+1. Download `use-hp.bat` from this GitHub project and copy it into `C:\Program Files\Haskell\bin`.
+1. Install whatever other Haskell Platform versions you need. Ignore the warning about having more than one Haskell Platform version.
+1. Download `find-hp.bat` from this GitHub project. Edit it so that the paths point to where you have Haskell Platform versions installed. Copy it into `C:\Program Files\Haskell\bin`.
+1. Optional - if you want to use the same version of cabal.exe with all of your Haskell Platform versions, copy it into `C:\Program Files\Haskell\bin`.
 
-    use-hppath "C:\\Program Files (x86)\\Haskell Platform\\2014.2.0.0"
+In the future, when you install or remove Haskell Platform versions,
+edit `find-hp.bat` and keep the paths up-to-date.
 
-Please note: `use-hppath` always ensures that the hard-coded path
-`C:\Program Files\\Haskell\\bin` is located on the PATH and overrides
-all other Haskell-related paths. This is similar to, but slightly
-different from, the behavior of the Haskell Platform itself. This can
-be a good place to put these executables and the batch files described
-below.
+#### Usage
 
-### Batch files
+1. Open a command prompt window.
+1. Run `use-hp <ghc-version-number>`. For example: `use-hp 7.8.3`
 
-This package also provides batch files that allow you to select an
-active Haskell Platform version by specifying the GHC version, similar
-to how the corresponding shell scripts work on Linux and Mac OS X.
+Optional - pick one version of Haskell Platform that you want to be
+your default. Do the above steps to activate it in one window.  Run
+`echo %PATH%`, and use that information to correct the values of your
+path permanently in System Properties. Now any new command prompt will
+work with your default Haskell Platform right from the
+start without having to run `use-hp`, and you can still run .
 
-The batch file `use-hp.bat` is a wrapper for `use-hppath`. The script
-`find-hp.bat` provides the mapping from GHC version to Haskell
-Platform installation folder. Currently, you must edit `find-hp.bat`
-by hand.
-
-Place the two batch files somewhere on the PATH, such as
-`C:\\Program Files\\Haskell\\bin`.
-Edit `find-hp.bat` to match the paths on your own PC when you first
-install it, and whenever you modify the set of Haskell Platform
-versions installed on your PC.
+Running `use-hp` enters a "sub-shell" within the same command prompt
+window and temporarily modifies the path to use the Haskell Platform
+you specified.  To return to the original environment, enter the
+command `exit`.
